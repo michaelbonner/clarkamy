@@ -23,6 +23,15 @@
       setInterval(() => {
         calculateSydneyTime();
       }, 1000);
+
+      const phoneNumber = document.querySelector("#phoneNumber");
+      if (phoneNumber) {
+        const decodedPhoneNumber = "427 586 614 16+"
+          .split("")
+          .reverse()
+          .join("");
+        phoneNumber.innerHTML = decodedPhoneNumber;
+      }
     </script>
 
     <div class="mx-auto py-12 prose lg:prose-xl">
@@ -34,7 +43,7 @@
       <div>
         <p>
           Phone:<br />
-          <span class="font-semibold text-gray-900"> +61 416 685 724</span>
+          <span id="phoneNumber" class="font-semibold text-gray-900"></span>
         </p>
       </div>
       <div>
