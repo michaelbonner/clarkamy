@@ -1,24 +1,64 @@
----
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
----
-
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Clark & Amy Bonner</title>
+  </head>
 
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
+  <body>
+    <script>
+      function calculateSydneyTime() {
+        const sydneyTime = document.querySelector("#sydneyTime");
+        if (sydneyTime) {
+          sydneyTime.innerHTML = new Date().toLocaleString("en-US", {
+            timeZone: "Australia/Sydney",
+          });
+        }
+      }
+
+      calculateSydneyTime();
+
+      setInterval(() => {
+        calculateSydneyTime();
+      }, 1000);
+    </script>
+
+    <div class="mx-auto py-12 prose lg:prose-xl">
+      <h1>Clark & Amy Bonner</h1>
+      <div>
+        The time in Sydney Austrailia right now is:<br />
+        <span class="font-semibold text-gray-900" id="sydneyTime"></span>
+      </div>
+      <div>
+        <p>
+          Phone:<br />
+          <span class="font-semibold text-gray-900"> +61 416 685 724</span>
+        </p>
+      </div>
+      <div>
+        <p>
+          Shipping Address:<br />
+          <a class="break-words" href="https://goo.gl/maps/1BDQPuBnsb9DouC3A">
+            1/12 Table Street. Port Macquarie NSW Australia. 2444
+          </a>
+        </p>
+      </div>
+      <div>
+        <p>
+          Mission Log:<br />
+          <a
+            class="break-words"
+            href="https://docs.google.com/document/d/10X19a9IjvCsnFy9CtQWnAhYNUnW4Jxp8b1YerXH9NTc/edit?usp=sharing"
+          >
+            Google Doc
+          </a>
+        </p>
+      </div>
+      <div>
+        <img alt="Clark and Amy" src="/clark-and-amy.jpg" width="500" />
+      </div>
+    </div>
+  </body>
 </html>
