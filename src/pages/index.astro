@@ -82,14 +82,14 @@ import { Picture } from "@astrojs/image/components";
       </div>
       <div>
         <Picture
-          formats={["avif", "webp", "jpeg"]}
-          widths={[300, 500]}
-          aspectRatio="50:75"
           alt="Clark and Amy"
+          aspectRatio="50:75"
           format="avif"
+          formats={["avif", "webp", "jpeg"]}
+          height={750}
           src="/clark-and-amy.jpg"
           width={500}
-          height={750}
+          widths={[300, 500]}
         />
       </div>
     </div>
