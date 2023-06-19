@@ -27,9 +27,16 @@ import { Picture } from "@astrojs/image/components";
       function calculateSydneyTime() {
         const sydneyTime = document.querySelector("#sydneyTime");
         if (sydneyTime) {
-          sydneyTime.innerHTML = new Date().toLocaleString("en-US", {
+          const newDate = new Date();
+          const dayOfWeek = newDate.toLocaleDateString("en-us", {
+            weekday: "long",
             timeZone: "Australia/Sydney",
           });
+          const localeString = newDate.toLocaleString("en-US", {
+            timeZone: "Australia/Sydney",
+          });
+
+          sydneyTime.innerHTML = `${dayOfWeek}, ${localeString}`;
         }
       }
 
