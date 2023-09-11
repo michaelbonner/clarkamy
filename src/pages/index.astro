@@ -1,5 +1,6 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import clarkAndAmy from "../images/clark-and-amy.jpg";
 ---
 
 <html lang="en">
@@ -93,16 +94,7 @@ import { Picture } from "@astrojs/image/components";
         </p>
       </div>
       <div>
-        <Picture
-          alt="Clark and Amy"
-          aspectRatio="50:75"
-          format="avif"
-          formats={["avif", "webp", "jpeg"]}
-          height={750}
-          src="/clark-and-amy.jpg"
-          width={500}
-          widths={[300, 500]}
-        />
+        <Image src={clarkAndAmy} alt="A bird sitting on a nest of eggs." />
       </div>
     </div>
   </body>
