@@ -1,0 +1,9 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": ["astro", "astrojs", "clarkamy"],
+  "ignoreWords": [],
+  "import": []
+}
