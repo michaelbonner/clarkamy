@@ -15,7 +15,10 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
       property="description"
       content="Links to help communicating with Clark and Amy"
     />
-    <meta name="description" content="Links to help communicating with Clark and Amy">
+    <meta
+      name="description"
+      content="Links to help communicating with Clark and Amy"
+    />
     <meta
       property="og:description"
       content="Links to help communicating with Clark and Amy"
@@ -31,6 +34,27 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
 
   <body>
     <script>
+      const getOffset = (timeZone) => {
+        const timeZoneName = Intl.DateTimeFormat("ia", {
+          timeZoneName: "short",
+          timeZone,
+        })
+          .formatToParts()
+          .find((i) => i.type === "timeZoneName").value;
+        const offset = timeZoneName.slice(3);
+        if (!offset) return 0;
+
+        const matchData = offset.match(/([+-])(\d+)(?::(\d+))?/);
+        if (!matchData) throw `cannot parse timezone name: ${timeZoneName}`;
+
+        const [, sign, hour, minute] = matchData;
+        let result = parseInt(hour) * 60;
+        if (sign === "+") result *= -1;
+        if (minute) result += parseInt(minute);
+
+        return result;
+      };
+
       function calculateSydneyTime() {
         const sydneyTime = document.querySelector("#sydneyTime");
         if (sydneyTime) {
@@ -43,7 +67,25 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
             timeZone: "Australia/Sydney",
           });
 
-          sydneyTime.innerHTML = `${dayOfWeek}, ${localeString}`;
+          sydneyTime.innerHTML = `${dayOfWeek}, ${localeString.replace(
+            /:\d{2} /,
+            " "
+          )}`;
+
+          const sydneyTimezoneOffset = parseInt(
+            Intl.DateTimeFormat("ia", {
+              timeZoneName: "short",
+              timeZone: "Australia/Sydney",
+            })
+              .formatToParts()
+              .pop()
+              .value.replace("GMT", "")
+          );
+
+          const sydneyOffset = getOffset("Australia/Sydney");
+          differenceFromYourTime.innerHTML = ` (${
+            (new Date().getTimezoneOffset() * -1) / 60 - sydneyTimezoneOffset
+          } hr. difference from your time)`;
         }
       }
 
@@ -68,6 +110,7 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
       <div>
         The time in Sydney Austrailia right now is:<br />
         <span class="font-semibold text-gray-900" id="sydneyTime"></span>
+        <span class="text-sm" id="differenceFromYourTime"></span>
       </div>
       <div>
         <p>
