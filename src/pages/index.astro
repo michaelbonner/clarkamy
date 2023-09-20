@@ -82,10 +82,13 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
               .value.replace("GMT", "")
           );
 
+          const browserTimezonOffset =
+            (new Date().getTimezoneOffset() / 60) * -1;
           const sydneyOffset = getOffset("Australia/Sydney");
+          const offsetDifference = sydneyTimezoneOffset - browserTimezonOffset;
           differenceFromYourTime.innerHTML = ` (${
-            (new Date().getTimezoneOffset() * -1) / 60 - sydneyTimezoneOffset
-          } hr. difference from your time)`;
+            offsetDifference > 0 && "+"
+          }${offsetDifference} hr)`;
         }
       }
 
