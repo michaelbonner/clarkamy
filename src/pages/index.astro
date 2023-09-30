@@ -87,7 +87,7 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
           const sydneyOffset = getOffset("Australia/Sydney");
           const offsetDifference = sydneyTimezoneOffset - browserTimezonOffset;
           differenceFromYourTime.innerHTML = ` (${
-            offsetDifference > 0 && "+"
+            offsetDifference < 0 ? "-" : "+"
           }${offsetDifference} hr)`;
         }
       }
