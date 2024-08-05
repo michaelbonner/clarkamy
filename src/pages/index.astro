@@ -34,30 +34,13 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
 
   <body>
     <script>
-      const getOffset = (timeZone) => {
-        const timeZoneName = Intl.DateTimeFormat("ia", {
-          timeZoneName: "short",
-          timeZone,
-        })
-          .formatToParts()
-          .find((i) => i.type === "timeZoneName").value;
-        const offset = timeZoneName.slice(3);
-        if (!offset) return 0;
-
-        const matchData = offset.match(/([+-])(\d+)(?::(\d+))?/);
-        if (!matchData) throw `cannot parse timezone name: ${timeZoneName}`;
-
-        const [, sign, hour, minute] = matchData;
-        let result = parseInt(hour) * 60;
-        if (sign === "+") result *= -1;
-        if (minute) result += parseInt(minute);
-
-        return result;
-      };
-
       function calculateSydneyTime() {
         const sydneyTime = document.querySelector("#sydneyTime");
-        if (sydneyTime) {
+        const differenceFromYourTime = document.querySelector(
+          "#differenceFromYourTime"
+        );
+
+        if (sydneyTime && differenceFromYourTime) {
           const newDate = new Date();
           const dayOfWeek = newDate.toLocaleDateString("en-us", {
             weekday: "long",
@@ -72,20 +55,27 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
             " "
           )}`;
 
+          const sydneyTimeFormatted = Intl.DateTimeFormat("ia", {
+            timeZoneName: "short",
+            timeZone: "Australia/Sydney",
+          });
+
+          const formatGmtPart = sydneyTimeFormatted.formatToParts().at(-1);
+
+          if (!formatGmtPart) {
+            return;
+          }
+
+          const sydneyTimeGmtOffset = formatGmtPart.value ?? "";
+
           const sydneyTimezoneOffset = parseInt(
-            Intl.DateTimeFormat("ia", {
-              timeZoneName: "short",
-              timeZone: "Australia/Sydney",
-            })
-              .formatToParts()
-              .pop()
-              .value.replace("GMT", "")
+            sydneyTimeGmtOffset.replace("GMT", "")
           );
 
           const browserTimezonOffset =
             (new Date().getTimezoneOffset() / 60) * -1;
-          const sydneyOffset = getOffset("Australia/Sydney");
           const offsetDifference = sydneyTimezoneOffset - browserTimezonOffset;
+
           differenceFromYourTime.innerHTML = ` (${
             offsetDifference < 0 ? "-" : "+"
           }${offsetDifference} hr)`;
