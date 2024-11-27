@@ -33,95 +33,14 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
   </head>
 
   <body>
-    <script>
-      function calculateSydneyTime() {
-        const sydneyTime = document.querySelector("#sydneyTime");
-        const differenceFromYourTime = document.querySelector(
-          "#differenceFromYourTime"
-        );
-
-        if (sydneyTime && differenceFromYourTime) {
-          const newDate = new Date();
-          const dayOfWeek = newDate.toLocaleDateString("en-us", {
-            weekday: "long",
-            timeZone: "Australia/Sydney",
-          });
-          const localeString = newDate.toLocaleString("en-US", {
-            timeZone: "Australia/Sydney",
-          });
-
-          sydneyTime.innerHTML = `${dayOfWeek}, ${localeString.replace(
-            /:\d{2} /,
-            " "
-          )}`;
-
-          const sydneyTimeFormatted = Intl.DateTimeFormat("ia", {
-            timeZoneName: "short",
-            timeZone: "Australia/Sydney",
-          });
-
-          const formatGmtPart = sydneyTimeFormatted.formatToParts().at(-1);
-
-          if (!formatGmtPart) {
-            return;
-          }
-
-          const sydneyTimeGmtOffset = formatGmtPart.value ?? "";
-
-          const sydneyTimezoneOffset = parseInt(
-            sydneyTimeGmtOffset.replace("GMT", "")
-          );
-
-          const browserTimezonOffset =
-            (new Date().getTimezoneOffset() / 60) * -1;
-          const offsetDifference = sydneyTimezoneOffset - browserTimezonOffset;
-
-          differenceFromYourTime.innerHTML = ` (${
-            offsetDifference < 0 ? "-" : "+"
-          }${offsetDifference} hr)`;
-        }
-      }
-
-      calculateSydneyTime();
-
-      setInterval(() => {
-        calculateSydneyTime();
-      }, 1000);
-
-      const phoneNumber = document.querySelector("#phoneNumber");
-      if (phoneNumber) {
-        const decodedPhoneNumber = "427 586 614 16+"
-          .split("")
-          .reverse()
-          .join("");
-        phoneNumber.innerHTML = decodedPhoneNumber;
-      }
-    </script>
-
     <div class="mx-auto py-8 lg:py-12 prose lg:prose-xl px-8">
       <h1>Clark & Amy Bonner</h1>
-      <div>
-        The time in Sydney Austrailia right now is:<br />
-        <span class="font-semibold text-gray-900" id="sydneyTime"></span>
-        <span class="text-sm" id="differenceFromYourTime"></span>
+      <div class="px-4 py-1 bg-gray-100 rounded-lg">
+        <p>They are home now, so this page is no longer updated.</p>
       </div>
       <div>
         <p>
-          Phone:<br />
-          <span id="phoneNumber" class="font-semibold text-gray-900"></span>
-        </p>
-      </div>
-      <div>
-        <p>
-          Shipping Address:<br />
-          <a class="break-words" href="https://goo.gl/maps/1BDQPuBnsb9DouC3A">
-            1/12 Table Street. Port Macquarie NSW Australia. 2444
-          </a>
-        </p>
-      </div>
-      <div>
-        <p>
-          Mission Log:<br />
+          Mission Log:
           <a
             class="break-words"
             href="https://docs.google.com/document/d/10X19a9IjvCsnFy9CtQWnAhYNUnW4Jxp8b1YerXH9NTc/edit?usp=sharing"
@@ -131,7 +50,12 @@ import clarkAndAmy from "../images/clark-and-amy.jpg";
         </p>
       </div>
       <div>
-        <Image src={clarkAndAmy} alt="A portrait taken of Clark and Amy" />
+        <Image
+          alt="A portrait taken of Clark and Amy"
+          class="rounded-xl"
+          loading="eager"
+          src={clarkAndAmy}
+        />
       </div>
     </div>
   </body>
